@@ -9,7 +9,7 @@ app.use(
     createParentPath: true
   })
 );
-app.use(express.static("uploads"));
+app.use(express.static("images"));
 
 // Serve only the static files form the dist directory
 app.use(express.static("./dist"));
