@@ -141,7 +141,6 @@ export default Vue.extend({
                     query: listAuthor,
                     variables: {}
                   });
-                  console.log(query);
                   query.author = query.author.filter((el: any) => {
                     return el.id !== item.id;
                   });
@@ -174,13 +173,13 @@ export default Vue.extend({
       this.editedItem = JSON.parse(JSON.stringify({})) as Author;
       this.dialog = false;
     },
-    submit() {
-      this.editedItem.__typename = undefined;
+    submit(editedItem: any) {
+      editedItem.__typename = undefined;
       this.$apollo
         .mutate({
-          mutation: this.editedItem.id ? updateAuthor : insertAuthor,
+          mutation: editedItem.id ? updateAuthor : insertAuthor,
           variables: {
-            ...this.editedItem
+            ...editedItem
           },
           update: (store: any, { data }: any) => {
             if (this.editedItem.id) {
@@ -207,9 +206,7 @@ export default Vue.extend({
                   query: listAuthor,
                   variables: {}
                 });
-
                 query.author.push(data.insert_author.returning[0]);
-
                 store.writeQuery({
                   query: listAuthor,
                   data: query
@@ -222,7 +219,7 @@ export default Vue.extend({
         .then(() => {
           this.$store.commit("snackbar/setSnack", {
             snack: `El gestor se ha ${
-              this.editedItem.id ? "editado" : "creado"
+              editedItem.id ? "editado" : "creado"
             } correctamente`,
             color: "success"
           });

@@ -14,9 +14,6 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }]
   },
-  axios: {
-    baseURL: process.env.AUGECRM_API
-  },
   css: [process.env.NODE_ENV ? "@mdi/font/css/materialdesignicons.css" : ""],
   plugins: ["@/plugins/base.ts", "@/plugins/vee-validate.ts"],
   components: false,
@@ -36,5 +33,6 @@ export default {
   },
   build: {
     transpile: ["vee-validate/dist/rules"]
-  }
+  },
+  serverMiddleware: [{ path: "/api", handler: "@/plugins/upload.ts" }]
 };

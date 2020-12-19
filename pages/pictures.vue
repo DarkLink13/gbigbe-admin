@@ -28,13 +28,9 @@
     <v-row>
       <v-col cols="12">
         <v-data-table :headers="headers" :items="picture" :items-per-page="5">
-          <template v-slot:[`item.thumbnail`]="{ item }">
+          <template v-slot:[`item.image`]="{ item }">
             <v-avatar>
-              <v-img
-                v-if="item.thumbnail"
-                :src="item.thumbnail"
-                :alt="item.title"
-              />
+              <v-img v-if="item.image" :src="item.image" :alt="item.title" />
               <v-icon v-else>mdi-file-image</v-icon>
             </v-avatar>
           </template>
@@ -73,7 +69,7 @@ export default Vue.extend({
       loadingPicture: false,
       editedItem: {} as Picture,
       headers: [
-        { text: "", value: "thumbnail", sortable: false },
+        { text: "", value: "image", sortable: false },
         { text: "Título", value: "title", sortable: true },
         { text: "Descripción", value: "description", sortable: true },
         { text: "Categoría", value: "category.name", sortable: true },
@@ -155,18 +151,18 @@ export default Vue.extend({
       this.editedItem = {} as Picture;
       this.dialog = false;
     },
-    submit() {
+    submit(editedItem: any) {
       // @ts-ignore
-      this.editedItem.__typename = this.editedItem.category = this.editedItem.author = undefined;
+      editedItem.__typename = editedItem.category = editedItem.author = undefined;
       this.$apollo
         .mutate({
-          mutation: this.editedItem.id ? updatePicture : insertPicture,
+          mutation: editedItem.id ? updatePicture : insertPicture,
           variables: {
-            ...this.editedItem
+            ...editedItem
           },
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           update: (store: any, { data }: any) => {
-            if (this.editedItem.id) {
+            if (editedItem.id) {
               try {
                 const query = store.readQuery({
                   query: listPicture,
@@ -191,10 +187,10 @@ export default Vue.extend({
                   variables: {}
                 });
 
-                query.picture.push(data.update_picture.returning[0]);
+                query.picture.push(data.insert_picture.returning[0]);
 
                 store.writeQuery({
-                  query: data.update_picture,
+                  query: data.insert_picture,
                   data: query
                 });
               } catch (error) {}
@@ -204,7 +200,7 @@ export default Vue.extend({
         .then(() => {
           this.$store.commit("snackbar/setSnack", {
             snack: `El cuadro se ha ${
-              this.editedItem.id ? "editado" : "creado"
+              editedItem.id ? "editado" : "creado"
             } correctamente`,
             color: "success"
           });

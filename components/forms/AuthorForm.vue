@@ -109,31 +109,34 @@ export default Vue.extend({
   },
   methods: {
     change(e: any) {
-      if (e) {
+      if (e && e.type && e.type.startsWith("image")) {
         const formData = new FormData();
         const file = new File([e], `${uuidv4()}-${e.name}`, {
           type: e.type
         });
         formData.append("file", file);
         this.$axios
-          .$post(`/storage/o/augecrm/${file.name}`, formData, {
+          .$post(`/api/upload/`, formData, {
             headers: {
               "Content-Type": "multipart/form-data"
             }
           })
           .then((response) => {
-            this.avatar.file = { name: response.key };
+            this.form.avatar = `${window.location.protocol}//${
+              window.location.hostname
+            }${process.env.NODE_ENV ? ":" + window.location.port : ""}/images/${
+              file.name
+            }`;
           });
-      } else {
-        this.avatar.file = undefined;
       }
     },
     onSubmit() {
+      this.form.avatar = this.avatar.file?.name;
+      this.$emit("submit", this.form);
       this.$nextTick(() => {
         // @ts-ignore
         this.$refs.validator.reset();
       });
-      this.$emit("submit");
     },
     close() {
       this.$nextTick(() => {

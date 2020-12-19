@@ -21,6 +21,12 @@ mutation insertPicture(
     returning {
       author_id
       category_id
+      category {
+        name
+      }
+      author {
+        email
+      }
       collection_id
       description
       id

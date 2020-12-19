@@ -142,13 +142,13 @@ export default Vue.extend({
       this.editedItem = JSON.parse(JSON.stringify({}));
       this.dialog = false;
     },
-    submit() {
-      this.editedItem.__typename = undefined;
+    submit(editedItem: any) {
+      editedItem.__typename = undefined;
       this.$apollo
         .mutate({
-          mutation: this.editedItem.id ? updateCategory : insertCategory,
+          mutation: editedItem.id ? updateCategory : insertCategory,
           variables: {
-            ...this.editedItem
+            ...editedItem
           },
           update: (store: any, { data }: any) => {
             if (this.editedItem.id) {

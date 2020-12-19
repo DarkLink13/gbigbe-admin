@@ -21,6 +21,7 @@
     "bcryptjs": "^2.4.3",
     "date-fns": "^2.16.1",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
     "graphql-tag": "^2.11.0",
     "nuxt": "^2.14.6",
     "vee-validate": "^3.3.11",
