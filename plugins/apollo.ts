@@ -5,7 +5,8 @@ export default function (ctx: any) {
     uri: "https://gbigbe.hasura.app/v1/graphql",
     fetch,
     headers: {
-      "x-hasura-admin-secret": localStorage.getItem("token")
+      "x-hasura-admin-secret":
+        "fafdaa2dae75edb5fd37a3d9fca820e2af2cce8a2ce9b7c0497bd647aaf3a57c"
     }
   });
   return {
