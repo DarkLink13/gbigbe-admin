@@ -141,17 +141,20 @@ export default Vue.extend({
                     query: listAuthor,
                     variables: {}
                   });
-
-                  query.polls = query.polls.filter((el: any) => {
-                    return el.id !== delete_author.returning[0].id;
+                  console.log(query);
+                  query.author = query.author.filter((el: any) => {
+                    return el.id !== item.id;
                   });
                   store.writeQuery({
-                    query: delete_author,
+                    query: listAuthor,
                     data: query
                   });
                 } catch (error) {}
-              } else throw new Error("No se actualizo ningun dato");
-              // @ts-ignore
+              } else
+                this.$store.commit("snackbar/setSnack", {
+                  snack: "No se actualizo ningun dato",
+                  color: "error"
+                });
             }
           })
           .then(() => {
@@ -194,7 +197,7 @@ export default Vue.extend({
                 Vue.set(query.author, index, data.update_author.returning[0]);
 
                 store.writeQuery({
-                  query: data.update_author,
+                  query: listAuthor,
                   data: query
                 });
               } catch (error) {}
@@ -205,10 +208,10 @@ export default Vue.extend({
                   variables: {}
                 });
 
-                query.author.push(data.update_author.returning[0]);
+                query.author.push(data.insert_author.returning[0]);
 
                 store.writeQuery({
-                  query: data.update_author,
+                  query: listAuthor,
                   data: query
                 });
               } catch (error) {}

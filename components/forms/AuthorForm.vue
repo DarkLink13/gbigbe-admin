@@ -25,7 +25,7 @@
         </v-col>
         <v-col cols="12" sm="6">
           <v-text-field-with-validation
-            v-model="form.email"
+            v-model="form.phone_number"
             label="Número de teléfono"
             rules="required"
           ></v-text-field-with-validation>

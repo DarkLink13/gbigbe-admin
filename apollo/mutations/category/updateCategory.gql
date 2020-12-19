@@ -1,4 +1,4 @@
-mutation insertCategory($id: uuid!, $icon: String!, $name: String!) {
+mutation updateCategory($id: uuid!, $icon: String!, $name: String!) {
   update_category(
     where: { id: { _eq: $id } }
     _set: { icon: $icon, name: $name }

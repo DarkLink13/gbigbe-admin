@@ -65,11 +65,10 @@ export default Vue.extend({
     return {
       dialog: false,
       loadingCategory: false,
-      editedItem: { address: {} } as Category,
+      editedItem: {} as Category,
       headers: [
         { text: "Ícono", value: "icon", sortable: true },
         { text: "Nombre", value: "name", sortable: true },
-        { text: "Cuadros", value: "pictures", sortable: false },
         { text: "Acciones", value: "actions", sortable: false }
       ]
     };
@@ -105,7 +104,24 @@ export default Vue.extend({
             },
             update: (store: any, { data: { delete_category } }: any) => {
               if (delete_category.affected_rows === 1) {
-              }
+                try {
+                  const query = store.readQuery({
+                    query: listCategory,
+                    variables: {}
+                  });
+                  query.category = query.category.filter((el: any) => {
+                    return el.id !== item.id;
+                  });
+                  store.writeQuery({
+                    query: listCategory,
+                    data: query
+                  });
+                } catch (error) {}
+              } else
+                this.$store.commit("snackbar/setSnack", {
+                  snack: "No se actualizo ningun dato",
+                  color: "error"
+                });
               // @ts-ignore
             }
           })
@@ -123,34 +139,54 @@ export default Vue.extend({
           });
     },
     close() {
-      this.editedItem = JSON.parse(JSON.stringify({ address: {} }));
+      this.editedItem = JSON.parse(JSON.stringify({}));
       this.dialog = false;
     },
     submit() {
-      // @ts-ignore
-      thisthis.editedItem.__typename = undefined;
+      this.editedItem.__typename = undefined;
       this.$apollo
         .mutate({
           mutation: this.editedItem.id ? updateCategory : insertCategory,
           variables: {
-            icon: this.editedItem.icon,
-            name: this.editedItem.name
+            ...this.editedItem
           },
           update: (store: any, { data }: any) => {
             if (this.editedItem.id) {
-              // @ts-ignore
-              // const index = this.category.findIndex((category: any) => {
-              //   return category.id === this.editedItem.id;
-              // });
-              // Vue.set(
-              //   // @ts-ignore
-              //   this.category,
-              //   index,
-              //   data.update_categories.returning[0]
-              // );
+              try {
+                const query = store.readQuery({
+                  query: listCategory,
+                  variables: {}
+                });
+
+                const index = query.category.find((el: any, index: any) => {
+                  if (data.update_category.returning[0].id === el.id)
+                    return index;
+                });
+                Vue.set(
+                  query.category,
+                  index,
+                  data.update_category.returning[0]
+                );
+
+                store.writeQuery({
+                  query: listCategory,
+                  data: query
+                });
+              } catch (error) {}
             } else {
-              // @ts-ignore
-              // this.categories.push(data.insert_categories.returning[0]);
+              try {
+                const query = store.readQuery({
+                  query: listCategory,
+                  variables: {}
+                });
+
+                query.category.push(data.insert_category.returning[0]);
+
+                store.writeQuery({
+                  query: listCategory,
+                  data: query
+                });
+              } catch (error) {}
             }
           }
         })

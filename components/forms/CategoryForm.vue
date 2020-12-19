@@ -11,7 +11,7 @@
         </v-col>
         <v-col cols="12" sm="6">
           <v-file-input
-            v-model="logo.file"
+            v-model="icon.file"
             accept="image/png, image/jpeg, image/bmp"
             placeholder="Ícono"
             prepend-icon="mdi-camera"

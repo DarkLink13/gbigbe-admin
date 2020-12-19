@@ -126,11 +126,11 @@ export default Vue.extend({
                     variables: {}
                   });
 
-                  query.polls = query.polls.filter((el: any) => {
-                    return el.id !== delete_picture.returning[0].id;
+                  query.picture = query.picture.filter((el: any) => {
+                    return el.id !== item.id;
                   });
                   store.writeQuery({
-                    query: delete_picture,
+                    query: listPicture,
                     data: query
                   });
                 } catch (error) {}
