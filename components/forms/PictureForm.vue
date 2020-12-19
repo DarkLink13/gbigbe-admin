@@ -126,7 +126,6 @@ export default Vue.extend({
       return `${item.first_name} ${item.last_name}`;
     },
     onSubmit(): void {
-      this.form.image = this.image.file?.name;
       this.$emit("submit", this.form);
       this.$nextTick(() => {
         // @ts-ignore

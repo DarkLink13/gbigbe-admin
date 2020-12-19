@@ -81,7 +81,6 @@ export default Vue.extend({
   },
   methods: {
     onSubmit(): void {
-      this.form.icon = this.icon.file?.name;
       this.$emit("submit", this.form);
       this.$nextTick(() => {
         // @ts-ignore

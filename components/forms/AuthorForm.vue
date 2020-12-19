@@ -127,7 +127,6 @@ export default Vue.extend({
       }
     },
     onSubmit() {
-      this.form.avatar = this.avatar.file?.name;
       this.$emit("submit", this.form);
       this.$nextTick(() => {
         // @ts-ignore
