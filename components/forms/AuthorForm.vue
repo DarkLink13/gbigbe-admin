@@ -122,7 +122,7 @@ export default Vue.extend({
             }
           })
           .then((response) => {
-            this.form.avatar = `https://gbigbe-admin.herokuapp.com/images/${file.name}`;
+            this.form.avatar = `https://gbigbe-admin.herokuapp.com/${file.name}`;
           });
       }
     },

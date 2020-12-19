@@ -29,7 +29,7 @@ app.post("/upload", async (req, res) => {
       });
     } else {
       let file = req.files.file;
-      file.mv("./static/images/" + file.name);
+      file.mv("./static/" + file.name);
       res.send({
         status: true,
         message: "File is uploaded",

@@ -154,7 +154,7 @@ export default Vue.extend({
             }
           })
           .then((response) => {
-            this.form.image = `https://gbigbe-admin.herokuapp.com/images/${file.name}`;
+            this.form.image = `https://gbigbe-admin.herokuapp.com/${file.name}`;
           });
       }
     }

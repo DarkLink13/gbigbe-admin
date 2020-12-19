@@ -9,7 +9,6 @@ app.use(
   })
 );
 
-app.use(express.static("uploads"));
 app.post("/upload", async (req: any, res: any) => {
   try {
     if (!req.files) {
@@ -19,7 +18,7 @@ app.post("/upload", async (req: any, res: any) => {
       });
     } else {
       let file = req.files.file;
-      file.mv("./static/images/" + file.name);
+      file.mv("./static/" + file.name);
       res.send({
         status: true,
         message: "File is uploaded",
