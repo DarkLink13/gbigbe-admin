@@ -1,0 +1,7 @@
+query listCategory {
+  category {
+    icon
+    id
+    name
+  }
+}

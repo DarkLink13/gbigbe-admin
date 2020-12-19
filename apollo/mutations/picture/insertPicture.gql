@@ -1,0 +1,32 @@
+mutation insertPicture(
+  $title: String!
+  $thumbnail: String
+  $image: String!
+  $description: String!
+  $collection_id: uuid
+  $category_id: uuid!
+  $author_id: uuid!
+) {
+  insert_picture(
+    objects: {
+      author_id: $author_id
+      category_id: $category_id
+      collection_id: $collection_id
+      description: $description
+      image: $image
+      thumbnail: $thumbnail
+      title: $title
+    }
+  ) {
+    returning {
+      author_id
+      category_id
+      collection_id
+      description
+      id
+      image
+      thumbnail
+      title
+    }
+  }
+}

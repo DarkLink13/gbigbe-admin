@@ -1,0 +1,40 @@
+stages:
+  - test
+  - build
+
+cache:
+  paths:
+    - node_modules/
+    - .npm/
+
+unit_test:
+  stage: test
+  image: node:alpine
+  variables:
+    NODE_ENV: test
+  before_script:
+    - apk --no-cache --update add python make g++
+    - npm ci
+  script:
+    - npm run lint
+
+build:
+  stage: build
+  image: docker:19.03.13-dind
+  services:
+    - name: docker:19.03.13-dind
+      entrypoint: ["env", "-u", "DOCKER_HOST"]
+      command: ["dockerd-entrypoint.sh"]
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    CI_REGISTRY: git.augecrm.com:5050
+    CI_REGISTRY_IMAGE: git.augecrm.com:5050/auge-cs/augecs-client
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker build --pull -t "${CI_REGISTRY_IMAGE}:latest" .
+    - docker push "${CI_REGISTRY_IMAGE}:latest"
+  only:
+    - develop
+    - master

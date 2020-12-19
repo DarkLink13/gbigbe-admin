@@ -1,0 +1,11 @@
+query listAuthor {
+  author {
+    avatar
+    email
+    first_name
+    id
+    last_name
+    phone_number
+    telegram
+  }
+}

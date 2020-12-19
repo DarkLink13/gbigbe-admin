@@ -1,0 +1,5 @@
+mutation deletePicture($id: uuid!) {
+  delete_picture(where: { id: { _eq: $id } }) {
+    affected_rows
+  }
+}

@@ -1,0 +1,5 @@
+mutation deleteAuthor($id: uuid!) {
+  delete_author(where: { id: { _eq: $id } }) {
+    affected_rows
+  }
+}

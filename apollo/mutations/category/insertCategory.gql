@@ -1,0 +1,9 @@
+mutation insertCategory($icon: String!, $name: String!) {
+  insert_category(objects: { icon: $icon, name: $name }) {
+    returning {
+      id
+      icon
+      name
+    }
+  }
+}

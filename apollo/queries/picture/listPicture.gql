@@ -1,0 +1,18 @@
+query listPicture {
+  picture {
+    author_id
+    author {
+      email
+    }
+    category_id
+    category {
+      name
+    }
+    collection_id
+    description
+    id
+    image
+    thumbnail
+    title
+  }
+}

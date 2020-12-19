@@ -1,0 +1,5 @@
+.git
+build
+npm-debug*
+.nuxt
+node_modules/
