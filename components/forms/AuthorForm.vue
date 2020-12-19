@@ -116,7 +116,7 @@ export default Vue.extend({
         });
         formData.append("file", file);
         this.$axios
-          .$post(`https://gbigbe-admin.herokuapp.com/api/upload/`, formData, {
+          .$post(`https://gbigbe-admin.herokuapp.com/upload/`, formData, {
             headers: {
               "Content-Type": "multipart/form-data"
             }

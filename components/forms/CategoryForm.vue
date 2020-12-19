@@ -103,17 +103,13 @@ export default Vue.extend({
         });
         formData.append("file", file);
         this.$axios
-          .$post(`/api/upload/`, formData, {
+          .$post(`https://gbigbe-admin.herokuapp.com/upload/`, formData, {
             headers: {
               "Content-Type": "multipart/form-data"
             }
           })
           .then((response) => {
-            this.form.icon = `${window.location.protocol}//${
-              window.location.hostname
-            }${process.env.NODE_ENV ? ":" + window.location.port : ""}/images/${
-              file.name
-            }`;
+            this.form.icon = `https://gbigbe-admin.herokuapp.com/images/${file.name}`;
           });
       }
     }
