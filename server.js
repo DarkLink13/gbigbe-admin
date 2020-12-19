@@ -29,7 +29,8 @@ app.post("/upload", async (req, res) => {
       });
     } else {
       let file = req.files.file;
-      file.mv("./" + file.name);
+      file.mv("./dist/" + file.name);
+      console.log(file.path);
       res.send({
         status: true,
         message: "File is uploaded",
