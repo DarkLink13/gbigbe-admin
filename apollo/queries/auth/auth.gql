@@ -1,0 +1,9 @@
+query auth($user: String!, $password: String!) {
+  auth(
+    where: {
+      _and: [{ user: { _eq: $user } }, { password: { _eq: $password } }]
+    }
+  ) {
+    id
+  }
+}

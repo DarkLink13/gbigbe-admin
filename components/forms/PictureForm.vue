@@ -7,6 +7,8 @@
             v-model="form.title"
             label="Nombre"
             rules="required"
+            dense
+            outlined
           ></v-text-field-with-validation>
         </v-col>
         <v-col cols="12">
@@ -14,6 +16,8 @@
             v-model="form.description"
             label="Descripción"
             rules="required"
+            dense
+            outlined
           ></v-textarea-with-validation>
         </v-col>
         <v-col cols="12">
@@ -21,7 +25,10 @@
             v-model="image.file"
             accept="image/png, image/jpeg, image/bmp"
             placeholder="Cuadro"
-            prepend-icon="mdi-camera"
+            outlined
+            dense
+            prepend-inner-icon="mdi-camera"
+            prepend-icon=""
             label="Cuadro"
             @change="change"
           ></v-file-input>
@@ -34,6 +41,8 @@
             item-value="id"
             label="Gestor"
             rules="required"
+            dense
+            outlined
           />
         </v-col>
         <v-col cols="12" sm="6">
@@ -44,6 +53,8 @@
             item-value="id"
             label="Categoría"
             rules="required"
+            dense
+            outlined
           />
         </v-col>
       </v-row>
@@ -53,7 +64,6 @@
         <v-btn
           :disabled="invalid"
           type="submit"
-          color="indigo"
           :loading="loading"
           text
           small

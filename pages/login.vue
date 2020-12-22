@@ -1,13 +1,15 @@
 <template>
   <validation-observer ref="validator" v-slot="{ invalid }">
-    <v-card class="elevation-12" height="350" width="400">
+    <v-card class="elevation-12" height="auto" width="375">
+      <v-row style="display: flex; justify-content: center">
+        <v-card-title>Acceder</v-card-title>
+      </v-row>
       <v-col cols="12" align="center">
         <v-row class="mx-4">
-          <v-col cols="3" clas>
-            <v-img src="logo.png" width="75" />
-          </v-col>
-          <v-col cols="9">
-            <v-card-title>GBIGBE - Acceder</v-card-title>
+          <v-col cols="12" style="display: flex; justify-content: center">
+            <v-col cols="12">
+              <v-img src="logo-black.png" height="250" width="250" />
+            </v-col>
           </v-col>
         </v-row>
         <v-card-text v-if="alert">
@@ -20,26 +22,27 @@
             v-model="username"
             label="Usuario"
             name="username"
-            prepend-icon="mdi-account"
+            prepend-inner-icon="mdi-account"
             type="text"
+            outlined
+            dense
             rules="required"
           />
           <v-text-field-with-validation
             v-model="password"
             label="Contraseña"
             name="password"
-            prepend-icon="mdi-lock"
+            outlined
+            dense
+            prepend-inner-icon="mdi-lock"
             type="password"
             rules="required"
+            @keyup.enter="login()"
           />
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            :disabled="invalid"
-            :loading="loading"
-            @click="login()"
+          <v-btn text :disabled="invalid" :loading="loading" @click="login()"
             >Acceder</v-btn
           >
         </v-card-actions>
@@ -48,10 +51,12 @@
   </validation-observer>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from "vue";
 import { ValidationObserver } from "vee-validate";
+import auth from "@/apollo/queries/auth/auth.gql";
 import bcrypt from "bcryptjs";
+
 export default Vue.extend({
   layout: "login",
   middleware: ["auth"],
@@ -71,20 +76,30 @@ export default Vue.extend({
   methods: {
     async login() {
       this.loading = true;
-      if (this.username === "admin" && this.password === "123gbigbe2020*") {
-        localStorage.setItem("user", this.username);
-        localStorage.setItem(
-          "token",
-          "fafdaa2dae75edb5fd37a3d9fca820e2af2cce8a2ce9b7c0497bd647aaf3a57c"
-        );
-        this.loading = false;
-        this.$router.push("pictures");
-      } else {
-        this.alert = true;
-        this.error = "Usuario y/o contraseña inválidos";
-        this.valid = false;
-        this.loading = false;
-      }
+      this.$apollo
+        .query({
+          query: auth,
+          variables: {
+            user: this.username,
+            password: this.password
+          }
+        })
+        .then(({ data: { auth } }: any) => {
+          if (auth.length > 0) {
+            localStorage.setItem("user", this.username);
+            localStorage.setItem(
+              "token",
+              "fafdaa2dae75edb5fd37a3d9fca820e2af2cce8a2ce9b7c0497bd647aaf3a57c"
+            );
+            this.loading = false;
+            this.$router.push("pictures");
+          } else {
+            this.alert = true;
+            this.error = "Usuario y/o contraseña inválidos";
+            this.valid = false;
+            this.loading = false;
+          }
+        });
     }
   },
   head() {

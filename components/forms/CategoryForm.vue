@@ -2,10 +2,12 @@
   <validation-observer ref="validator" v-slot="{ invalid }">
     <form id="category-form" @submit.prevent="onSubmit">
       <v-row dense>
-        <v-col cols="12">
+        <v-col cols="12" sm="6">
           <v-text-field-with-validation
             v-model="form.name"
             label="Nombre"
+            dense
+            outlined
             rules="required"
           ></v-text-field-with-validation>
         </v-col>
@@ -14,7 +16,10 @@
             v-model="icon.file"
             accept="image/png, image/jpeg, image/bmp"
             placeholder="Ícono"
-            prepend-icon="mdi-camera"
+            dense
+            outlined
+            prepend-inner-icon="mdi-camera"
+            prepend-icon=""
             label="Ícono"
             @change="change"
           ></v-file-input>
@@ -26,10 +31,11 @@
         <v-btn
           :disabled="invalid"
           type="submit"
-          color="indigo"
           :loading="loading"
           text
           small
+          dense
+          outlined
           title="save"
           >Guardar</v-btn
         >

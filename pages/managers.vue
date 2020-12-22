@@ -1,29 +1,29 @@
 <template>
   <v-card>
-    <v-row>
-      <v-col cols="12" sm="3" offset="9">
-        <v-dialog v-model="dialog" scrollable persistent max-width="600px">
-          <template v-slot:activator="{ on }">
-            <v-btn depressed text small v-on="on">
-              <v-icon>mdi-plus</v-icon>A&ntilde;adir gestor de venta
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              {{ formTitle }}
-            </v-card-title>
-            <v-divider />
-            <v-card-text>
-              <author-form
-                :instance="editedItem"
-                :loading="loadingAuthor"
-                @submit="submit"
-                @close="close"
-              />
-            </v-card-text>
-          </v-card>
-        </v-dialog>
-      </v-col>
+    <v-row class="mx-0">
+      <v-card-title v-text="'Gestores comerciales'" />
+      <v-spacer />
+      <v-dialog v-model="dialog" scrollable persistent max-width="600px">
+        <template v-slot:activator="{ on }">
+          <v-btn depressed text small v-on="on" class="mt-5 mr-5">
+            <v-icon>mdi-plus</v-icon>A&ntilde;adir gestor de venta
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+            {{ formTitle }}
+          </v-card-title>
+          <v-divider />
+          <v-card-text class="mt-5">
+            <author-form
+              :instance="editedItem"
+              :loading="loadingAuthor"
+              @submit="submit"
+              @close="close"
+            />
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </v-row>
     <v-row>
       <v-col cols="12">

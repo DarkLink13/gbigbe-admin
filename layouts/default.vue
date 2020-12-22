@@ -6,7 +6,7 @@
         <v-list-item>
           <v-row>
             <v-col cols="3">
-              <v-img src="logo-white.png" />
+              <v-img src="logo-black.png" />
             </v-col>
             <v-col cols="12">
               <v-btn text @click="logout()">
@@ -47,6 +47,11 @@ export default Vue.extend({
     return {
       items: [
         {
+          icon: "mdi-lock",
+          title: "Cambiar contraseña",
+          to: "/account"
+        },
+        {
           icon: "mdi-account-circle",
           title: "Gestores",
           to: "/managers"
@@ -71,8 +76,8 @@ export default Vue.extend({
   },
   methods: {
     logout() {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
+      if (localStorage.getItem("user")) localStorage.removeItem("user");
+      if (localStorage.getItem("token")) localStorage.removeItem("token");
       this.$router.push("login");
     }
   }

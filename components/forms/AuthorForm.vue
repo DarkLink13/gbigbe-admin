@@ -7,6 +7,8 @@
             v-model="form.first_name"
             label="Nombre(s)"
             rules="required"
+            dense
+            outlined
           ></v-text-field-with-validation>
         </v-col>
         <v-col cols="12" sm="6">
@@ -14,6 +16,8 @@
             v-model="form.last_name"
             label="Apellidos"
             rules="required"
+            dense
+            outlined
           ></v-text-field-with-validation>
         </v-col>
         <v-col cols="12" sm="6">
@@ -21,6 +25,8 @@
             v-model="form.email"
             label="Correo"
             rules="required|email"
+            dense
+            outlined
           ></v-text-field-with-validation>
         </v-col>
         <v-col cols="12" sm="6">
@@ -28,6 +34,8 @@
             v-model="form.phone_number"
             label="Número de teléfono"
             rules="required"
+            dense
+            outlined
           ></v-text-field-with-validation>
         </v-col>
         <v-col cols="12" sm="6">
@@ -35,7 +43,10 @@
             v-model="avatar.file"
             accept="image/png, image/jpeg, image/bmp"
             placeholder="Perfil"
-            prepend-icon="mdi-account-circle"
+            dense
+            outlined
+            prepend-inner-icon="mdi-account-circle"
+            prepend-icon=""
             label="Perfil"
             @change="change"
           ></v-file-input>
@@ -44,6 +55,8 @@
           <v-text-field-with-validation
             v-model="form.telegram"
             label="Telegram"
+            dense
+            outlined
           ></v-text-field-with-validation>
         </v-col>
       </v-row>
@@ -53,9 +66,8 @@
         <v-btn
           :disabled="invalid"
           type="submit"
-          color="indigo"
-          :loading="loading"
           text
+          :loading="loading"
           small
           title="save"
           >Guardar</v-btn
