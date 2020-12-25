@@ -163,7 +163,7 @@ export default Vue.extend({
             }
           })
           .then((response) => {
-            this.form.image = `https://storage.konbex.com/minio/gbigbe/public/${file.name}`;
+            this.form.image = `https://storage.konbex.com/gbigbe/public/${file.name}`;
           });
       }
     }
