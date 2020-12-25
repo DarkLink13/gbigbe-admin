@@ -47,12 +47,12 @@ export default Vue.extend({
           "X-Hasura-Role": "admin"
         }
       },
+      update(data) {
+        this.description = data.application_by_pk.description;
+        return data.application_by_pk;
+      },
       prefetch: true
     }
-  },
-  mounted() {
-    // @ts-ignore
-    this.description = this.application_by_pk.description;
   },
   methods: {
     change() {
