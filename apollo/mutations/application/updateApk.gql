@@ -1,0 +1,8 @@
+mutation updateApk($apk_file: String!) {
+  update_application(
+    where: { name: { _eq: "gbigbe" } }
+    _set: { apk_file: $apk_file }
+  ) {
+    affected_rows
+  }
+}

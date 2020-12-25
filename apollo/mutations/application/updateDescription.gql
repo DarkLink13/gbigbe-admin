@@ -1,0 +1,8 @@
+mutation updateDescription($description: String!) {
+  update_application(
+    where: { name: { _eq: "gbigbe" } }
+    _set: { description: $description }
+  ) {
+    affected_rows
+  }
+}

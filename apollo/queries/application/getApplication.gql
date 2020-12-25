@@ -1,0 +1,5 @@
+query getApplication {
+  application_by_pk(name: "gbigbe") {
+    description
+  }
+}

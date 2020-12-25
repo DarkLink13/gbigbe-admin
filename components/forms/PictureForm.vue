@@ -157,13 +157,13 @@ export default Vue.extend({
         });
         formData.append("file", file);
         this.$axios
-          .$post(`https://gbigbe-admin.herokuapp.com/upload/`, formData, {
+          .$post(`https://gbigbe-admin.heroku.app/upload/`, formData, {
             headers: {
               "Content-Type": "multipart/form-data"
             }
           })
           .then((response) => {
-            this.form.image = `https://gbigbe-admin.herokuapp.com/${file.name}`;
+            this.form.image = `https://storage.konbex.com/minio/gbigbe/public/${file.name}`;
           });
       }
     }
