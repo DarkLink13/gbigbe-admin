@@ -1,18 +1,16 @@
 <template>
   <validation-observer ref="validator" v-slot="{ invalid }">
     <v-card class="elevation-12">
-      <v-card-title v-text="'Cambiar contraseña'"></v-card-title>
+      <v-card-title v-text="'Subir apk'"></v-card-title>
       <v-col cols="12">
         <v-row style="display: flex; justify-content: center">
           <v-col cols="12" sm="7" align="center">
             <v-file-input
               v-model="image.file"
-              placeholder="Cuadro"
               outlined
               dense
-              prepend-inner-icon="mdi-camera"
-              prepend-icon=""
-              label="Cuadro"
+              prepend-inner-icon="mdi-android"
+              label="Apk"
               @change="change"
             ></v-file-input>
           </v-col>
