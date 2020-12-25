@@ -22,7 +22,9 @@
     "date-fns": "^2.16.1",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
+    "fs": "0.0.1-security",
     "graphql-tag": "^2.11.0",
+    "minio": "^7.0.18",
     "nuxt": "^2.14.6",
     "vee-validate": "^3.3.11",
     "vue-the-mask": "^0.11.1"
@@ -35,6 +37,7 @@
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "@types/bcryptjs": "^2.4.2",
+    "@types/minio": "^7.0.6",
     "@types/nuxtjs__auth": "^4.8.4",
     "@types/uuid": "^8.3.0",
     "babel-eslint": "^10.1.0",

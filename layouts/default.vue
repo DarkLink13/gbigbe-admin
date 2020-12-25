@@ -47,11 +47,6 @@ export default Vue.extend({
     return {
       items: [
         {
-          icon: "mdi-lock",
-          title: "Cambiar contraseña",
-          to: "/account"
-        },
-        {
           icon: "mdi-account-circle",
           title: "Gestores",
           to: "/managers"
@@ -70,6 +65,21 @@ export default Vue.extend({
           icon: "mdi-image-text",
           title: "Categorías",
           to: "/categories"
+        },
+        {
+          icon: "mdi-lock",
+          title: "Cambiar contraseña",
+          to: "/account"
+        },
+        {
+          icon: "mdi-android",
+          title: "Subir apk",
+          to: "/application"
+        },
+        {
+          icon: "mdi-account-supervisor-circle",
+          title: "Quienes somos?",
+          to: "/description"
         }
       ]
     };
@@ -78,7 +88,7 @@ export default Vue.extend({
     logout() {
       if (localStorage.getItem("user")) localStorage.removeItem("user");
       if (localStorage.getItem("token")) localStorage.removeItem("token");
-      this.$router.push("login");
+      this.$router.push("/login");
     }
   }
 });
