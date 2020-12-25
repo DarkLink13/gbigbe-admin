@@ -30,7 +30,13 @@
         <v-data-table :headers="headers" :items="picture" :items-per-page="5">
           <template v-slot:[`item.image`]="{ item }">
             <v-avatar>
-              <v-img v-if="item.image" :src="item.image" :alt="item.title" />
+              <v-img
+                v-if="item.image"
+                :src="item.image"
+                :alt="item.title"
+                @click="showDialog(item)"
+                style="cursor: pointer !important"
+              />
               <v-icon v-else>mdi-file-image</v-icon>
             </v-avatar>
           </template>
@@ -43,6 +49,18 @@
           <template v-slot:no-data> No hay datos disponibles </template>
         </v-data-table>
       </v-col>
+      <v-dialog v-model="detailsDialog" scrollable persistent max-width="600px">
+        <v-card>
+          <v-card-title> Detalles de {{ title }} </v-card-title>
+          <v-card-text class="mt-5">
+            <v-img :src="picture_details" :alt="title" />
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn text @click="detailsDialog = false">CERRAR</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-row>
   </v-card>
 </template>
@@ -65,6 +83,9 @@ export default Vue.extend({
   },
   data() {
     return {
+      detailsDialog: false,
+      title: "",
+      picture_details: "",
       dialog: false,
       loadingPicture: false,
       editedItem: {} as Picture,
@@ -146,6 +167,11 @@ export default Vue.extend({
               color: "error"
             });
           });
+    },
+    showDialog(item: any) {
+      this.title = item.title;
+      this.picture_details = item.image;
+      this.detailsDialog = true;
     },
     close() {
       this.editedItem = {} as Picture;

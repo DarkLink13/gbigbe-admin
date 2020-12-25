@@ -29,7 +29,13 @@
         <v-data-table :headers="headers" :items="category" :items-per-page="5">
           <template v-slot:[`item.icon`]="{ item }">
             <v-avatar>
-              <v-img v-if="item.icon" :src="item.icon" :alt="item.name" />
+              <v-img
+                v-if="item.icon"
+                :src="item.icon"
+                :alt="item.name"
+                @click="showDialog(item)"
+                style="cursor: pointer !important"
+              />
               <v-icon v-else>mdi-file-image</v-icon>
             </v-avatar>
           </template>
@@ -43,6 +49,18 @@
         </v-data-table>
       </v-col>
     </v-row>
+    <v-dialog v-model="detailsDialog" scrollable persistent max-width="600px">
+      <v-card>
+        <v-card-title> Detalles de {{ title }} </v-card-title>
+        <v-card-text class="mt-5">
+          <v-img :src="picture_details" :alt="title" />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn text @click="detailsDialog = false">CERRAR</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -63,6 +81,9 @@ export default Vue.extend({
   },
   data() {
     return {
+      detailsDialog: false,
+      title: "",
+      picture_details: "",
       dialog: false,
       loadingCategory: false,
       editedItem: {} as Category,
@@ -90,6 +111,11 @@ export default Vue.extend({
     }
   },
   methods: {
+    showDialog(item: any) {
+      this.title = item.name;
+      this.picture_details = item.icon;
+      this.detailsDialog = true;
+    },
     editItem(item: any) {
       this.editedItem = JSON.parse(JSON.stringify(item));
       this.dialog = true;
