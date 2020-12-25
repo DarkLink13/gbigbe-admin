@@ -50,7 +50,7 @@ export default Vue.extend({
         });
         formData.append("file", file);
         this.$axios
-          .$post(`http://localhost:8080/upload/`, formData, {
+          .$post(`https://gbigbe-admin.herokuapp.com/upload/`, formData, {
             headers: {
               "Content-Type": "multipart/form-data"
             }
